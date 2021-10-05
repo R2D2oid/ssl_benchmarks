@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=def-mudl
-#SBATCH --gres=gpu:v100:1              # Number of GPU(s) per node
+#SBATCH --gres=gpu:v100l:1              # Number of GPU(s) per node
 #SBATCH --cpus-per-task=8              # CPU cores/threads
 #SBATCH --mem=24G                      # memory per node
 #SBATCH --time=0-3:00                  # time (DD-HH:MM)
