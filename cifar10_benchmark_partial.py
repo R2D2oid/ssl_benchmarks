@@ -59,7 +59,7 @@ from NoisyCIFAR10Dataset import NoisyCIFAR10
 parser = argparse.ArgumentParser(description='SSL Training')
 parser.add_argument('--model_name', default='SimCLR', help='select one model from: [MoCo, SimCLR, SimSiam, BarlowTwinsModel, BYOL, SwAV]')
 parser.add_argument('--user_name', default='srangrej', help='your username')
-parser.add_argument('--data', default='./data', help='path cifar10 dataset')
+parser.add_argument('--data', default='~/projects/def-jjclark/shared_data/cifar10/data', help='path cifar10 dataset')
 
 args = parser.parse_args()
 
@@ -69,8 +69,8 @@ data_dir=args.data
 num_workers = 8
 memory_bank_size = 4096
 
-#logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL/')
-logs_root_dir = os.path.join('/usr/local/extstore01/zahra/ssl_benchmarks/output_cifar10_')
+logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL/')
+#logs_root_dir = os.path.join('/usr/local/extstore01/zahra/ssl_benchmarks/output_cifar10_')
 
 
 # set max_epochs to 800 for long run (takes around 10h on a single V100)
