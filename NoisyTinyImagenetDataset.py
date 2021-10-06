@@ -21,7 +21,7 @@ class NoisyTinyImagenet(Dataset):
             transform (callable, optional): Optional transform to be applied on a sample.
         """
         self.data_dir = data_dir
-        self.transform = transforms.ToTensor() if transform is None else transform
+        self.transform = transform
         self.split = split
         self.ds = datasets.ImageFolder(os.path.join(data_dir, split), transform)
         
