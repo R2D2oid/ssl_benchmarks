@@ -69,13 +69,13 @@ num_workers = 8
 memory_bank_size = 4096
 
 #logs_root_dir = os.path.join('/usr/local/extstore01/zahra/ssl_benchmarks/output')
-logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL/')
+logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL_tinyimg/')
 
 # set max_epochs to 800 for long run (takes around 10h on a single V100)
 max_epochs = 200
 knn_k = 200
 knn_t = 0.1
-classes = 10
+classes = 200
 
 # benchmark
 n_runs = 1 # optional, increase to create multiple runs and report mean + std
@@ -96,7 +96,7 @@ distributed_backend = 'ddp' if torch.cuda.device_count() > 1 else None
 
 # Use SimCLR augmentations, additionally, disable blur for cifar10
 collate_fn = lightly.data.SimCLRCollateFunction(
-    input_size=32, # 64 runs out of GPU memory on rocket
+    input_size=64, # 64 runs out of GPU memory on rocket
     gaussian_blur=0.,
 )
 
