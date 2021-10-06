@@ -3,8 +3,8 @@
 #SBATCH --gres=gpu:v100l:1              # Number of GPU(s) per node
 #SBATCH --cpus-per-task=8              # CPU cores/threads
 #SBATCH --mem=24G                      # memory per node
-#SBATCH --time=0-3:00                  # time (DD-HH:MM)
-#SBATCH --output=ssl.out
+#SBATCH --time=0-5:00                  # time (DD-HH:MM)
+#SBATCH --output=ssl_MoCo.out
 
 source env_ssl/bin/activate
 
