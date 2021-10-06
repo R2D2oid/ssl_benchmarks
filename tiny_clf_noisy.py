@@ -38,14 +38,14 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning.loggers import CSVLogger
 from torchvision import transforms
 from all_models import MocoModel, SimCLRModel, SimSiamModel, BarlowTwinsModel, BYOLModel, SwaVModel
-from NoisyTinyImagenet import NoisyTinyImagenet
+from NoisyTinyImagenetDataset import NoisyTinyImagenet
 
 parser = argparse.ArgumentParser(description='SSL Training')
 parser.add_argument('--model_name', default='SimCLR', help='select one model from: [MoCo, SimCLR, SimSiam, BarlowTwinsModel, BYOL, SwAV]')
 parser.add_argument('--user_name', default='srangrej', help='your username')
 parser.add_argument('--noise_type', default='asym', help='asym or sym')
 parser.add_argument('--noise_rate', default=0.0, type=float, help='from 0.0, 0.1, 0.2, ... , 0.9')
-arser.add_argument('--data_dir', default='/usr/local/data02/zahra/datasets/tiny-imagenet-200', help='path tinyimagenet dataset')
+parser.add_argument('--data_dir', default='/usr/local/data02/zahra/datasets/tiny-imagenet-200', help='path tinyimagenet dataset')
 
 args = parser.parse_args()
 
@@ -61,7 +61,7 @@ logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL_noisy_tiny/')
 
 # set max_epochs to 800 for long run (takes around 10h on a single V100)
 max_epochs = 100
-classes = 10
+classes = 200
 
 # benchmark
 batch_size = 512
@@ -96,9 +96,10 @@ train_base_dataset = NoisyTinyImagenet(data_dir,
                                       n_classes=200,
                                       noise_rate=noise_rate,
                                       noise_type=noise_type,
-                                      transform=train_classifier_transforms)
+                                      transform=None)
 
 dataset_train_classifier = lightly.data.LightlyDataset.from_torch_dataset(train_base_dataset)
+dataset_train_classifier.transform=train_classifier_transforms
 
 # dataloader
 dataloader_train_classifier = torch.utils.data.DataLoader(
@@ -115,10 +116,10 @@ test_base_dataset = NoisyTinyImagenet(data_dir,
                                   n_classes=200,
                                   noise_rate=0.0,
                                   noise_type='non',
-                                  transform=test_transforms)
+                                  transform=None)
 
 dataset_test = lightly.data.LightlyDataset.from_torch_dataset(test_base_dataset)
-
+dataset_test.transform=test_transforms
 # dataloader
 dataloader_test = torch.utils.data.DataLoader(
     dataset_test,
@@ -141,7 +142,7 @@ class Classifier(pl.LightningModule):
 
         # we create a linear layer for our downstream classification
         # model
-        self.fc = nn.Linear(512, 10)
+        self.fc = nn.Linear(512, classes)
 
         self.accuracy = pl.metrics.Accuracy()
 
