@@ -69,7 +69,7 @@ data_dir=args.data
 num_workers = 8
 memory_bank_size = 4096
 
-logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL/')
+logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL_50/')
 #logs_root_dir = os.path.join('/usr/local/extstore01/zahra/ssl_benchmarks/output_cifar10_')
 
 
