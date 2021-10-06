@@ -21,12 +21,11 @@ class NoisyTinyImagenet(Dataset):
             transform (callable, optional): Optional transform to be applied on a sample.
         """
         self.data_dir = data_dir
-        self.transform = transform #transforms.ToTensor() if transform is None else transform
+        self.transform = transforms.ToTensor() if transform is None else transform
         self.split = split
         self.ds = datasets.ImageFolder(os.path.join(data_dir, split), transform)
         
-        self.data = [x[0] for x in self.ds]
-        self.targets = [x[1] for x in self.ds]
+        self.targets = [x[1] for x in self.ds.imgs]
 
         # add noise 
         self.noise_rate = noise_rate
@@ -68,11 +67,10 @@ class NoisyTinyImagenet(Dataset):
                 raise ValueError(f'Undefined noise_type: {noise_type}!') 
                 
     def __len__(self):
-        assert len(self.data) == len(self.ds)
         return len(self.ds)
 
     def __getitem__(self, idx):
-        image, target = self.data[idx], self.targets[idx]
+        image, target = self.ds[idx][0], self.targets[idx]
         if self.transform:
             image = self.transform(image)
             
