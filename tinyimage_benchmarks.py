@@ -72,14 +72,14 @@ memory_bank_size = 4096
 logs_root_dir = os.path.join('/scratch/'+user+'/colab/SSL_tinyimg/')
 
 # set max_epochs to 800 for long run (takes around 10h on a single V100)
-max_epochs = 200
+max_epochs = 100
 knn_k = 200
 knn_t = 0.1
 classes = 200
 
 # benchmark
 n_runs = 1 # optional, increase to create multiple runs and report mean + std
-batch_sizes = [512]
+batch_sizes = [256]
 
 # use a GPU if available
 gpus = -1 if torch.cuda.is_available() else 0
