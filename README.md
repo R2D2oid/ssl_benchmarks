@@ -6,7 +6,17 @@ source env_ssl/bin/activate
 pip install -r requirements.txt
 ```
 
-### Train SSL Model
+### Train SSL Model on CIFAR10
 ```
-sbatch sbatch_script.sh 
+sbatch ssl_cifar10_sbatch.sh 
+```
+
+### Train SSL Model on TinyImagenet
+```
+sbatch ssl_tiny_sbatch.sh 
+```
+
+### Train Classifier using various noise-rates
+```
+sbatch clf_noisy_bt.sh
 ```
